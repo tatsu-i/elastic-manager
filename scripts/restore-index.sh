@@ -39,5 +39,5 @@ done
 for dumpfile in $(ls ${BACKUP_DIR}/*)
 do
 	index=$(basename -s .json.gz ${dumpfile})
-	echo "gzip -dc ${dumpfile} | elasticdump --input=$ --output=\"${ES_URL}/${index}\""
+	echo "gzip -dc ${dumpfile} | elasticdump --limit 10000 --input=$ --output=\"${ES_URL}/${index}\""
 done
