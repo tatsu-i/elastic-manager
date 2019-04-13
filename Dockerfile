@@ -15,7 +15,7 @@ RUN \
   ln -sf /usr/local/bin/node /usr/bin/node && \
   apt-get purge -y nodejs npm
 
-ENV ES_CLI_HOST=elasticsearch
+ENV ES_CLI_HOST=elasticsearch:9200
 RUN \
   npm install elasticdump -g && \
   npm install escli -g && \
