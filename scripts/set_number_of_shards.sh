@@ -1,6 +1,6 @@
 #!/bin/bash
 INDEX=""
-ES_URL="elasticsearch"
+ES_URL="http://elasticsearch:9200"
 NUMBER=1
 function print_usage() {
 	cat << __EOF___
@@ -54,5 +54,4 @@ curl -XPUT "${ES_URL}/_template/${INDEX}" -d "
     \"settings\" : {
         \"number_of_shards\" : ${NUMBER}
     }
-}"
-
+}" -H "Content-Type: application/json"

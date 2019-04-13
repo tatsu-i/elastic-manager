@@ -1,6 +1,6 @@
 #!/bin/bash
 INDEX=""
-ES_HOST="localhost"
+ES_URL="http://elasticsearch:9200"
 NUMBER=-1
 function print_usage() {
 cat << __EOF__
@@ -24,8 +24,8 @@ __EOF__
 while [ "$1" != "" ]; do
     case $1 in
         -l | -host )
-            ES_HOST=$2
-            if [ "$ES_HOST" = "" ]; then
+            ES_URL=$2
+            if [ "$ES_URL" = "" ]; then
                 echo "Error: Missing Elasticsearch URL"
                 print_usage
                 exit 1
@@ -59,9 +59,9 @@ while [ "$1" != "" ]; do
     shift 2
 done
 
-curl -XPUT "http://${ES_HOST}:9200/${INDEX}/_settings" -d "
+curl -XPUT "${ES_URL}/${INDEX}/_settings" -d "
 {
     \"index\" : {
         \"refresh_interval\" : \"${NUMBER}\"
     }
-}"
+}" -H "Content-Type: application/json"

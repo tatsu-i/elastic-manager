@@ -1,6 +1,6 @@
 #!/bin/bash
 INDEX=""
-ES_URL="elasticsearch"
+ES_URL="http://elasticsearch:9200"
 NUMBER=1
 function print_usage() {
     echo "Usage: $0 [-l host] [-i index] [-n number default 1]" 1>&2
@@ -49,6 +49,4 @@ curl -XPUT "${ES_URL}/${INDEX}/_settings" -d "
     \"index\" : {
         \"number_of_replicas\" : ${NUMBER}
     }
-}"
-
-
+}" -H "Content-Type: application/json"
