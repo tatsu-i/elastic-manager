@@ -3,6 +3,10 @@ INDEX=""
 ES_URL="elasticsearch"
 NUMBER=1
 function print_usage() {
+	cat << __EOF___
+既存のindexのshard数は変更できません。
+
+__EOF___
     echo "Usage: $0 [-l host] [-i index] [-n number default 1]" 1>&2
     exit 1
 }
@@ -44,11 +48,11 @@ while [ "$1" != "" ]; do
     shift 2
 done
 
-curl -XPUT "${ES_URL}/${INDEX}/_settings" -d "
+curl -XPUT "${ES_URL}/_template/${INDEX}" -d "
 {
-    \"index\" : {
-        \"number_of_replicas\" : ${NUMBER}
+    \"template\" : \"${INDEX}*\",
+    \"settings\" : {
+        \"number_of_shards\" : ${NUMBER}
     }
 }"
-
 
