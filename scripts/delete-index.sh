@@ -2,11 +2,10 @@
 INDEX=""
 ES_URL="http://${ES_USER}:${ES_PASSWORD}@${ES_CLI_HOST}"
 function print_usage() {
-    echo "Usage: $0 [-l host] [-d dir]" 1>&2
+    echo "Usage: $0 [-l host] [-i index]" 1>&2
     exit 1
 }
 DRY_RUN=0
-
 while [ "$1" != "" ]; do
     case $1 in
         -l | -host )
@@ -16,10 +15,6 @@ while [ "$1" != "" ]; do
                 print_usage
                 exit 1
             fi
-            ;;
-
-        -d | -dir )
-            BACKUP_DIR=$2
             ;;
 
         -h | -help )
@@ -35,9 +30,7 @@ while [ "$1" != "" ]; do
     esac
     shift 2
 done
-
-for dumpfile in $(ls ${BACKUP_DIR}/*)
+for index in $(curl -s -q ${ES_URL}/_cat/indices |awk '{ print $3 }')
 do
-	index=$(basename -s .json.gz ${dumpfile})
-	echo "gzip -dc ${dumpfile} | elasticdump --limit 100 --input=$ --output=\"${ES_URL}/${index}\""
+	echo "curl -XDELETE ${ES_URL}/${index}"
 done

@@ -32,7 +32,7 @@ while [ "$1" != "" ]; do
 done
 for index in $(curl -s -q ${ES_URL}/_cat/indices |awk '{ print $3 }')
 do
-	echo "elasticdump --limit=10000 --input=\"${ES_URL}/${index}*\" --output=$ | gzip > ${index}.json.gz"
+	echo "elasticdump --limit=100 --input=\"${ES_URL}/${index}*\" --output=$ | gzip > ${index}.json.gz"
 done
 
 # ./backup-index.sh |bash
