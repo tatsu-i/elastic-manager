@@ -1,6 +1,6 @@
 #!/bin/bash
 INDEX=""
-ES_URL="http://elasticsearch:9200"
+ES_URL="http://${ES_USER}:${ES_PASSWORD}@${ES_CLI_HOST}"
 NUMBER=-1
 function print_usage() {
 cat << __EOF__
