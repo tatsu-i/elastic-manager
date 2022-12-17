@@ -11,7 +11,7 @@ RUN apt -y install --no-install-recommends nodejs npm
 RUN \
   npm cache clean && \
   npm install n -g && \
-  n stable && \
+  n 16 && \
   ln -sf /usr/local/bin/node /usr/bin/node && \
   apt-get purge -y nodejs npm
 
