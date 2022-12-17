@@ -19,8 +19,6 @@ ENV ES_CLI_HOST=elasticsearch:9200
 RUN \
   npm install elasticdump -g && \
   npm install escli -g && \
-  npm install elasticsearch-cli -g && \
-  apt-get -y autoclean && \
-  rm -rf /var/lib/apt/lists/*
+  npm install elasticsearch-cli -g
 
 COPY ./scripts /scripts
