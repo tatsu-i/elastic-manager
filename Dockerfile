@@ -22,3 +22,4 @@ RUN \
   npm install elasticsearch-cli -g
 
 COPY ./scripts /scripts
+WORKDIR /scripts
